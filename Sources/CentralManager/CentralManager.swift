@@ -39,6 +39,9 @@ public final class CentralManager: Sendable {
     private let cbCentralManager: CBCentralManager
     private let context: CentralManagerContext
     private let cbCentralManagerDelegate: CBCentralManagerDelegate
+
+    /// emotiveapps: for `restoredState`, in RestoredState.swift.
+    var restoredStateBox: RestoredStateBox { context.restoredState }
     
     // MARK: Constructors
 
@@ -248,6 +251,7 @@ extension CentralManager.DelegateWrapper: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
+        self.context.restoredState.keep(dict) // emotiveapps: see RestoredState.swift
         self.context.eventSubject.send(.willRestoreState(state: dict))
     }
     
