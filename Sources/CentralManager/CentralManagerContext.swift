@@ -31,6 +31,9 @@ actor CentralManagerContext {
     }
     
     nonisolated let eventSubject = PassthroughSubject<CentralManagerEvent, Never>()
+
+    /// Added by emotiveapps: see `RestoredState.swift`.
+    nonisolated let restoredState = RestoredStateBox()
     
     private(set) lazy var waitUntilReadyExecutor = {
         let executor = AsyncSerialExecutor<Void>()
